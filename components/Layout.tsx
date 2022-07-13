@@ -1,5 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
+import Header from './Header'
 import Sidebar from './Sidebar'
 import { useRouter } from 'next/router'
 
@@ -29,6 +30,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                         <Sidebar />
 
                         <main className='sm:w-2/3 xl:w-4/5 sm:min-h-screen p-5'>
+                            <Header />
                             {children}
                         </main>
                     </div>
