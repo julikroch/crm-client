@@ -1,10 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 import Layout from '../components/Layout'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import { useMutation, gql } from '@apollo/client'
+import { NEW_ACCOUNT } from '../graphql'
+import { useMutation } from '@apollo/client'
 
 const NewAccount = () => {
+
+    const [msg, setMsg] = useState<string | null>(null)
+    const router = useRouter();
+    const [newUser] = useMutation(NEW_ACCOUNT)
 
     const formik = useFormik({
         initialValues: {
@@ -19,14 +26,42 @@ const NewAccount = () => {
             email: Yup.string().email('Email not valid').required('Email is mandatory'),
             password: Yup.string().required('Password is mandatory').min(6, 'Password must have more than 6 characters')
         }),
-        onSubmit: values => {
+        onSubmit: async values => {
+            const { name, lastname, email, password } = values
 
+            try {
+                const { data } = await newUser({
+                    variables: {
+                        input: {
+                            name,
+                            lastname,
+                            email,
+                            password
+                        }
+                    }
+                })
+
+                setMsg(`${data.newUser.name}, your account was created!`);
+
+                setTimeout(() => {
+                    setMsg(null);
+                    router.push('/login')
+                }, 3000);
+            } catch (error: any) {
+                setMsg(error.message.replace('GraphQL error:', ''))
+                setTimeout(() => {
+                    setMsg(null);
+                }, 3000);
+            }
         }
     })
 
     return (
         <>
             <Layout>
+
+                {msg ? <div className="bg-white py-2 px-3 w-full my-3 max-w-sm text-center mx-auto"><p>{msg}</p></div> : null}
+
                 <h1 className='text-center text-2xl text-white font-light'>Create new account</h1>
 
                 <div className="flex justify-center mt-5">
@@ -117,6 +152,9 @@ const NewAccount = () => {
                                 value='Create new account'
                             />
                         </form>
+                        <Link href="/login">
+                            <span className="text-white no-underline cursor-pointer">Already have an account?</span>
+                        </Link>
                     </div>
                 </div>
             </Layout>
