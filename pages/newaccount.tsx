@@ -6,6 +6,7 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { NEW_ACCOUNT } from '../graphql'
 import { useMutation } from '@apollo/client'
+import { showMsg } from '../utils';
 
 const NewAccount = () => {
 
@@ -60,7 +61,7 @@ const NewAccount = () => {
         <>
             <Layout>
 
-                {msg ? <div className="bg-white py-2 px-3 w-full my-3 max-w-sm text-center mx-auto"><p>{msg}</p></div> : null}
+                {msg && showMsg(msg)}
 
                 <h1 className='text-center text-2xl text-white font-light'>Create new account</h1>
 

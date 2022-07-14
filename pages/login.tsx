@@ -7,6 +7,7 @@ import { useFormik } from 'formik';
 import { useMutation } from '@apollo/client';
 import * as Yup from 'yup';
 import { AUTHENTICATE_USER } from '../graphql';
+import { showMsg } from '../utils';
 
 const Login = () => {
     const [msg, setMsg] = useState<string | null>('');
@@ -59,84 +60,78 @@ const Login = () => {
         }
     })
     return (
-        <>
-            <Layout>
+        <Layout>
 
-                {msg ? <div className="bg-white py-2 px-3 w-full my-3 max-w-sm text-center mx-auto"><p>{msg}</p></div> : null}
+            {msg && showMsg(msg)}
 
-                <h1 className="text-2xl text-center font-light text-white">Login</h1>
+            <h1 className="text-2xl text-center font-light text-white">Login</h1>
 
-                <div className="flex justify-center mt-5">
-                    <div className="w-full max-w-sm">
-                        <form
-                            className="bg-white rounded shadow-md px-8 pt-6 pb-8 mb-4"
-                            onSubmit={formik.handleSubmit}
-                        >
-                            <div className="mb-4">
-                                <label
-                                    htmlFor="email"
-                                    className="block text-gray-700 text-sm font-bold mb-2"
-                                >
-                                    Email
-                                </label>
-
-                                <input
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    id="email"
-                                    type="email"
-                                    placeholder="Email"
-                                    value={formik.values.email}
-                                    onChange={formik.handleChange}
-                                    onBlur={formik.handleBlur}
-                                />
-                            </div>
-
-                            {formik.touched.email && formik.errors.email ? (
-                                <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                                    <p className="font-bold">Error</p>
-                                    <p>{formik.errors.email}</p>
-                                </div>
-                            ) : null}
-
-                            <div className="mb-4">
-                                <label
-                                    htmlFor="password"
-                                    className="block text-gray-700 text-sm font-bold mb-2"
-                                >
-                                    Password
-                                </label>
-
-                                <input
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    id="password"
-                                    type="password"
-                                    placeholder="Password"
-                                    value={formik.values.password}
-                                    onChange={formik.handleChange}
-                                    onBlur={formik.handleBlur}
-                                />
-                            </div>
-
-                            {formik.touched.password && formik.errors.password ? (
-                                <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                                    <p className="font-bold">Error</p>
-                                    <p>{formik.errors.password}</p>
-                                </div>
-                            ) : null}
+            <div className="flex justify-center mt-5">
+                <div className="w-full max-w-sm">
+                    <form
+                        className="bg-white rounded shadow-md px-8 pt-6 pb-8 mb-4"
+                        onSubmit={formik.handleSubmit}
+                    >
+                        <div className="mb-4">
+                            <label
+                                htmlFor="email"
+                                className="block text-gray-700 text-sm font-bold mb-2"
+                            >Email</label>
 
                             <input
-                                type="submit"
-                                value="Log in"
-                                className="bg-gray-800 w-full mt-5 p-2 text-white uppercase cursor-pointer hover:bg-gray-900"
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="email"
+                                type="email"
+                                placeholder="Email"
+                                value={formik.values.email}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
                             />
-                        </form>
-                        <Link href="/newaccount">
-                            <span className="text-white no-underline cursor-pointer">New account?</span>
-                        </Link>
-                    </div>
+                        </div>
+
+                        {formik.touched.email && formik.errors.email ? (
+                            <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                                <p className="font-bold">Error</p>
+                                <p>{formik.errors.email}</p>
+                            </div>
+                        ) : null}
+
+                        <div className="mb-4">
+                            <label
+                                htmlFor="password"
+                                className="block text-gray-700 text-sm font-bold mb-2"
+                            >Password</label>
+
+                            <input
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="password"
+                                type="password"
+                                placeholder="Password"
+                                value={formik.values.password}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                            />
+                        </div>
+
+                        {formik.touched.password && formik.errors.password ? (
+                            <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                                <p className="font-bold">Error</p>
+                                <p>{formik.errors.password}</p>
+                            </div>
+                        ) : null}
+
+                        <input
+                            type="submit"
+                            value="Log in"
+                            className="bg-gray-800 w-full mt-5 p-2 text-white uppercase cursor-pointer hover:bg-gray-900"
+                        />
+                    </form>
+                    <Link href="/newaccount">
+                        <span className="text-white no-underline cursor-pointer">New account?</span>
+                    </Link>
                 </div>
-            </Layout>
-        </>
+            </div>
+        </Layout>
     )
 }
 

@@ -14,7 +14,7 @@ export const GET_USER = gql`
 
 export const GET_CLIENTS_FROM_USER = gql`
     query getClientsSeller {
-        getClientsSeller{
+        getClientsSeller {
             id
             name
             lastname
@@ -41,6 +41,19 @@ export const AUTHENTICATE_USER = gql`
     mutation authenticateUser($input: AuthenticateInput) {
         authenticateUser(input: $input) {
             token
+        }
+    }
+`;
+
+export const NEW_CLIENT = gql`
+    mutation newClient($input: ClientInput) {
+        newClient(input: $input) {
+            id
+            name
+            lastname
+            company
+            email
+            phone
         }
     }
 `;
