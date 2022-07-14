@@ -2,6 +2,7 @@ import Layout from "../components/Layout"
 import Link from "next/link"
 import { useQuery } from "@apollo/client"
 import { GET_CLIENTS_FROM_USER } from "../graphql"
+import Client from "../components/Client"
 
 const Home = () => {
 
@@ -21,16 +22,16 @@ const Home = () => {
             <th className="w-1/5 py-2">Name</th>
             <th className="w-1/5 py-2">Company</th>
             <th className="w-1/5 py-2">Email</th>
+            <th className="w-1/5 py-2">Delete</th>
           </tr>
         </thead>
 
         <tbody className="bg-white">
           {data?.getClientsSeller && data?.getClientsSeller.map((item: any) =>
-            <tr key={item.id}>
-              <td className="border px-4 py-2">{item.name} {item.lastname}</td>
-              <td className="border px-4 py-2">{item.company}</td>
-              <td className="border px-4 py-2">{item.email}</td>
-            </tr>
+            <Client
+              key={item.id}
+              client={item}
+            />
           )}
         </tbody>
       </table>
