@@ -24,6 +24,30 @@ export const GET_CLIENTS_FROM_USER = gql`
     }
 `;
 
+export const GET_CLIENT = gql`
+    query getClient($id: ID!) {
+        getClient(id: $id) {
+            id
+            name
+            lastname
+            email
+            phone
+            company
+        }
+    }
+`;
+
+export const GET_PRODUCTS = gql`
+    query getProducts {
+        getProducts {
+            id
+            name
+            price
+            stock
+        }
+    }
+`;
+
 //Mutations
 
 export const NEW_ACCOUNT = gql`
@@ -61,5 +85,24 @@ export const NEW_CLIENT = gql`
 export const DELETE_CLIENT = gql`
     mutation deleteClient($id: ID!) {
         deleteClient(id:$id)
+    }
+`;
+
+export const UPDATE_CLIENT = gql`
+    mutation updateClient($id: ID!, $input: ClientInput) {
+        updateClient(id: $id, input: $input) {
+            id
+            name
+            lastname
+            email
+            phone
+            company
+        }
+    }
+`;
+
+export const DELETE_PRODUCT = gql`
+    mutation deleteProduct($id: ID!) {
+        deleteProduct(id:$id)
     }
 `;
