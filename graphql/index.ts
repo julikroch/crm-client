@@ -48,6 +48,17 @@ export const GET_PRODUCTS = gql`
     }
 `;
 
+export const GET_PRODUCT = gql`
+    query getProduct($id:ID!) {
+        getProduct(id:$id) {
+            id
+            name
+            stock
+            price
+        }
+    }
+`;
+
 //Mutations
 
 export const NEW_ACCOUNT = gql`
@@ -104,5 +115,26 @@ export const UPDATE_CLIENT = gql`
 export const DELETE_PRODUCT = gql`
     mutation deleteProduct($id: ID!) {
         deleteProduct(id:$id)
+    }
+`;
+
+export const NEW_PRODUCT = gql`
+    mutation newProduct($input: ProductInput) {
+        newProduct(input: $input) {
+            id
+            name
+            stock
+            price
+        }
+    }
+`;
+
+export const UPDATE_PRODUCT = gql`
+    mutation updateProduct($id: ID!, $input: ProductInput) {
+        updateProduct(id: $id, input: $input) {
+            name
+            stock
+            price
+        }
     }
 `;
