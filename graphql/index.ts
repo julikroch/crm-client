@@ -59,6 +59,37 @@ export const GET_PRODUCT = gql`
     }
 `;
 
+export const GET_ORDERS_FROM_SELLER = gql`
+    query getOrdersBySeller {
+        getOrdersBySeller {
+            id
+            order {
+                id
+                quantity
+                name
+            }
+            client {
+                id
+                name
+                lastname
+                email
+                phone
+            }
+            seller
+            total
+            state
+        }
+    }
+`;
+
+export const GET_ORDERS_FROM_SELLER_ID = gql`
+    query getOrdersBySeller {
+        getOrdersBySeller {
+            id
+        }
+    }
+`;
+
 //Mutations
 
 export const NEW_ACCOUNT = gql`
@@ -136,5 +167,19 @@ export const UPDATE_PRODUCT = gql`
             stock
             price
         }
+    }
+`;
+
+export const UPDATE_ORDER = gql`
+    mutation updateOrder($id: ID!, $input: OrderInput) {
+        updateOrder(id: $id, input: $input) {
+            state
+        }
+    }
+`;
+
+export const DELETE_ORDER = gql`
+    mutation deleteOrder($id: ID!) {
+        deleteOrder(id:$id)
     }
 `;
