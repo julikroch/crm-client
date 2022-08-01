@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react';
 import OrderContext from './OrderContext';
-import OrderReducer from './OrderReducer';
+import OrderReducer from './orderReducer';
 import { SELECT_CLIENT, SELECT_PRODUCT, PRODUCT_QUANTITY, UPDATE_TOTAL } from '../../types'
 
 const OrderState = ({ children }: { children: React.ReactNode }) => {

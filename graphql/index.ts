@@ -170,6 +170,14 @@ export const UPDATE_PRODUCT = gql`
     }
 `;
 
+export const NEW_ORDER = gql`
+    mutation newOrder($input: OrderInput) {
+        newOrder(input: $input) {
+            id
+        }
+    }
+`;
+
 export const UPDATE_ORDER = gql`
     mutation updateOrder($id: ID!, $input: OrderInput) {
         updateOrder(id: $id, input: $input) {
